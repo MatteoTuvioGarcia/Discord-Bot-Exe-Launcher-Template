@@ -7,13 +7,18 @@ from discord.ext import commands
 from discord.utils import get
 from dotenv import load_dotenv
 
+#____________________CONFIG_AREA_____________________________#
 
 path="C:\Program Files\HandBrake\HandBrake.exe"
 ExeToKill="HandBrake.exe"
+prefix="!"
+#____________________CONFIG_AREA_____________________________#
+
+
 
 load_dotenv()
 token = os.getenv('CLIENT_TOKEN')
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix=prefix)
 
 
 @bot.event    
@@ -21,16 +26,16 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if message.content == "./startdew":
+    if message.content == prefix+"start":
            member = message.author
-           print("caca")
+           print("chkpnt")
            await message.channel.send('Attempting to start server..')
            os.system('start ""'+' "'+path+'"' )
            await message.channel.send('Server started successfully. Give it just a few seconds to pop-up ingame.')
                 
-    if message.content == "./stopdew":
+    if message.content == prefix+"stop":
            member = message.author
-           print("coco")
+           print("chkpnt2")
            await message.channel.send('Attempting to stop server..')
            os.system("TASKKILL /F /IM " +ExeToKill)
            await message.channel.send('Server stopped successfully.')           
