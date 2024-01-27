@@ -9,9 +9,6 @@ from discord.ext.commands import has_permissions
 from dotenv import load_dotenv
 import os
 
-
-
-
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 RCON_PASS = os.getenv('RCON_PASS')
@@ -57,20 +54,14 @@ async def stop(ctx):
 @bot.command(name='snap', help="This is literally privacy invasion")
 @has_permissions(administrator=True)  
 async def snap(ctx):
-    print('Entering snap command')
     apiID = cv.CAP_DSHOW
     cam = cv.VideoCapture(0,apiID)
     if not cam.isOpened():
         response = "Cannot open camera"
         await ctx.send(response)
     else:
-        # Capture frame-by-frame
         ret, frame = cam.read()
-        # Filename 
         filename = 'savedImage.jpg'
-    
-        # Using cv2.imwrite() method 
-        # Saving the image 
         cv.imwrite(filename, frame) 
         await ctx.send(file=discord.File(filename))
     
