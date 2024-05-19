@@ -8,6 +8,30 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 from dotenv import load_dotenv
 import os
+# from paho.mqtt import client as mqtt_client
+# import random
+# broker = 'broker.emqx.io'
+# port = 1883
+# topic = "python/mqtt"
+# client_id = f'python-mqtt-{random.randint(0, 1000)}'
+# username = 'MQTTusr'
+# password = 'XuCpHrA'
+
+# def connect_mqtt():
+#     def on_connect(client, userdata, flags, rc):
+#         if rc == 0:
+#             print("Connected to MQTT Broker!")
+#         else:
+#             print("Failed to connect, return code %d\n", rc)
+
+#     client = mqtt_client.Client(client_id)
+#     client.username_pw_set(username, password)
+#     client.on_connect = on_connect
+#     client.connect(broker, port)
+#     return client
+
+# client = connect_mqtt()
+# client.loop_start()
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -51,6 +75,10 @@ async def stop(ctx):
     response = await send_rcon('stop')
     await ctx.send(response)
 
+@bot.event
+async def on_message(message):
+    print(message.content)
+    
 @bot.command(name='snap', help="This is literally privacy invasion")
 @has_permissions(administrator=True)  
 async def snap(ctx):
